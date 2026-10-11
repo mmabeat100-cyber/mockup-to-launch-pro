@@ -12,6 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SiteRouteImport } from './routes/_site'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
 import { Route as SiteAnnuaireRouteImport } from './routes/_site.annuaire'
+import { Route as SiteVillesRouteImport } from './routes/_site.villes'
+import { Route as SitePaysCountryRouteImport } from './routes/_site.pays.$country'
+import { Route as SiteProfilSlugRouteImport } from './routes/_site.profil.$slug'
+import { Route as SiteStudiosIndexRouteImport } from './routes/_site.studios.index'
+import { Route as SiteStudiosSlugRouteImport } from './routes/_site.studios.$slug'
+import { Route as SiteVilleCountryCityRouteImport } from './routes/_site.ville.$country.$city'
 
 const SiteRoute = SiteRouteImport.update({
   id: '/_site',
@@ -27,27 +33,101 @@ const SiteAnnuaireRoute = SiteAnnuaireRouteImport.update({
   path: '/annuaire',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteVillesRoute = SiteVillesRouteImport.update({
+  id: '/villes',
+  path: '/villes',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SitePaysCountryRoute = SitePaysCountryRouteImport.update({
+  id: '/pays/$country',
+  path: '/pays/$country',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteProfilSlugRoute = SiteProfilSlugRouteImport.update({
+  id: '/profil/$slug',
+  path: '/profil/$slug',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteStudiosIndexRoute = SiteStudiosIndexRouteImport.update({
+  id: '/studios/',
+  path: '/studios/',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteStudiosSlugRoute = SiteStudiosSlugRouteImport.update({
+  id: '/studios/$slug',
+  path: '/studios/$slug',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteVilleCountryCityRoute = SiteVilleCountryCityRouteImport.update({
+  id: '/ville/$country/$city',
+  path: '/ville/$country/$city',
+  getParentRoute: () => SiteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
   '/annuaire': typeof SiteAnnuaireRoute
+  '/villes': typeof SiteVillesRoute
+  '/pays/$country': typeof SitePaysCountryRoute
+  '/profil/$slug': typeof SiteProfilSlugRoute
+  '/studios/$slug': typeof SiteStudiosSlugRoute
+  '/studios/': typeof SiteStudiosIndexRoute
+  '/ville/$country/$city': typeof SiteVilleCountryCityRoute
 }
 export interface FileRoutesByTo {
   '/annuaire': typeof SiteAnnuaireRoute
+  '/villes': typeof SiteVillesRoute
   '/': typeof SiteIndexRoute
+  '/pays/$country': typeof SitePaysCountryRoute
+  '/profil/$slug': typeof SiteProfilSlugRoute
+  '/studios/$slug': typeof SiteStudiosSlugRoute
+  '/studios': typeof SiteStudiosIndexRoute
+  '/ville/$country/$city': typeof SiteVilleCountryCityRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_site': typeof SiteRouteWithChildren
   '/_site/annuaire': typeof SiteAnnuaireRoute
+  '/_site/villes': typeof SiteVillesRoute
   '/_site/': typeof SiteIndexRoute
+  '/_site/pays/$country': typeof SitePaysCountryRoute
+  '/_site/profil/$slug': typeof SiteProfilSlugRoute
+  '/_site/studios/$slug': typeof SiteStudiosSlugRoute
+  '/_site/studios/': typeof SiteStudiosIndexRoute
+  '/_site/ville/$country/$city': typeof SiteVilleCountryCityRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/annuaire'
+  fullPaths:
+    | '/'
+    | '/annuaire'
+    | '/villes'
+    | '/pays/$country'
+    | '/profil/$slug'
+    | '/studios/$slug'
+    | '/studios/'
+    | '/ville/$country/$city'
   fileRoutesByTo: FileRoutesByTo
-  to: '/annuaire' | '/'
-  id: '__root__' | '/_site' | '/_site/annuaire' | '/_site/'
+  to:
+    | '/annuaire'
+    | '/villes'
+    | '/'
+    | '/pays/$country'
+    | '/profil/$slug'
+    | '/studios/$slug'
+    | '/studios'
+    | '/ville/$country/$city'
+  id:
+    | '__root__'
+    | '/_site'
+    | '/_site/annuaire'
+    | '/_site/villes'
+    | '/_site/'
+    | '/_site/pays/$country'
+    | '/_site/profil/$slug'
+    | '/_site/studios/$slug'
+    | '/_site/studios/'
+    | '/_site/ville/$country/$city'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,17 +157,71 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteAnnuaireRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/villes': {
+      id: '/_site/villes'
+      path: '/villes'
+      fullPath: '/villes'
+      preLoaderRoute: typeof SiteVillesRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/pays/$country': {
+      id: '/_site/pays/$country'
+      path: '/pays/$country'
+      fullPath: '/pays/$country'
+      preLoaderRoute: typeof SitePaysCountryRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/profil/$slug': {
+      id: '/_site/profil/$slug'
+      path: '/profil/$slug'
+      fullPath: '/profil/$slug'
+      preLoaderRoute: typeof SiteProfilSlugRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/studios/': {
+      id: '/_site/studios/'
+      path: '/studios'
+      fullPath: '/studios/'
+      preLoaderRoute: typeof SiteStudiosIndexRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/studios/$slug': {
+      id: '/_site/studios/$slug'
+      path: '/studios/$slug'
+      fullPath: '/studios/$slug'
+      preLoaderRoute: typeof SiteStudiosSlugRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/ville/$country/$city': {
+      id: '/_site/ville/$country/$city'
+      path: '/ville/$country/$city'
+      fullPath: '/ville/$country/$city'
+      preLoaderRoute: typeof SiteVilleCountryCityRouteImport
+      parentRoute: typeof SiteRoute
+    }
   }
 }
 
 interface SiteRouteChildren {
   SiteAnnuaireRoute: typeof SiteAnnuaireRoute
+  SiteVillesRoute: typeof SiteVillesRoute
   SiteIndexRoute: typeof SiteIndexRoute
+  SitePaysCountryRoute: typeof SitePaysCountryRoute
+  SiteProfilSlugRoute: typeof SiteProfilSlugRoute
+  SiteStudiosSlugRoute: typeof SiteStudiosSlugRoute
+  SiteStudiosIndexRoute: typeof SiteStudiosIndexRoute
+  SiteVilleCountryCityRoute: typeof SiteVilleCountryCityRoute
 }
 
 const SiteRouteChildren: SiteRouteChildren = {
   SiteAnnuaireRoute: SiteAnnuaireRoute,
+  SiteVillesRoute: SiteVillesRoute,
   SiteIndexRoute: SiteIndexRoute,
+  SitePaysCountryRoute: SitePaysCountryRoute,
+  SiteProfilSlugRoute: SiteProfilSlugRoute,
+  SiteStudiosSlugRoute: SiteStudiosSlugRoute,
+  SiteStudiosIndexRoute: SiteStudiosIndexRoute,
+  SiteVilleCountryCityRoute: SiteVilleCountryCityRoute,
 }
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)

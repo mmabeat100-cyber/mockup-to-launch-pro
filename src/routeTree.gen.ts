@@ -11,7 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SiteRouteImport } from './routes/_site'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
+import { Route as SiteAProposRouteImport } from './routes/_site.a-propos'
 import { Route as SiteAnnuaireRouteImport } from './routes/_site.annuaire'
+import { Route as SiteConfidentialiteRouteImport } from './routes/_site.confidentialite'
+import { Route as SiteContactRouteImport } from './routes/_site.contact'
+import { Route as SiteMentionsLegalesRouteImport } from './routes/_site.mentions-legales'
+import { Route as SiteProtectionDesMineursRouteImport } from './routes/_site.protection-des-mineurs'
 import { Route as SiteVillesRouteImport } from './routes/_site.villes'
 import { Route as SitePaysCountryRouteImport } from './routes/_site.pays.$country'
 import { Route as SiteProfilSlugRouteImport } from './routes/_site.profil.$slug'
@@ -28,11 +33,37 @@ const SiteIndexRoute = SiteIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteAProposRoute = SiteAProposRouteImport.update({
+  id: '/a-propos',
+  path: '/a-propos',
+  getParentRoute: () => SiteRoute,
+} as any)
 const SiteAnnuaireRoute = SiteAnnuaireRouteImport.update({
   id: '/annuaire',
   path: '/annuaire',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteConfidentialiteRoute = SiteConfidentialiteRouteImport.update({
+  id: '/confidentialite',
+  path: '/confidentialite',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteContactRoute = SiteContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteMentionsLegalesRoute = SiteMentionsLegalesRouteImport.update({
+  id: '/mentions-legales',
+  path: '/mentions-legales',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteProtectionDesMineursRoute =
+  SiteProtectionDesMineursRouteImport.update({
+    id: '/protection-des-mineurs',
+    path: '/protection-des-mineurs',
+    getParentRoute: () => SiteRoute,
+  } as any)
 const SiteVillesRoute = SiteVillesRouteImport.update({
   id: '/villes',
   path: '/villes',
@@ -66,7 +97,12 @@ const SiteVilleCountryCityRoute = SiteVilleCountryCityRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
+  '/a-propos': typeof SiteAProposRoute
   '/annuaire': typeof SiteAnnuaireRoute
+  '/confidentialite': typeof SiteConfidentialiteRoute
+  '/contact': typeof SiteContactRoute
+  '/mentions-legales': typeof SiteMentionsLegalesRoute
+  '/protection-des-mineurs': typeof SiteProtectionDesMineursRoute
   '/villes': typeof SiteVillesRoute
   '/pays/$country': typeof SitePaysCountryRoute
   '/profil/$slug': typeof SiteProfilSlugRoute
@@ -75,7 +111,12 @@ export interface FileRoutesByFullPath {
   '/ville/$country/$city': typeof SiteVilleCountryCityRoute
 }
 export interface FileRoutesByTo {
+  '/a-propos': typeof SiteAProposRoute
   '/annuaire': typeof SiteAnnuaireRoute
+  '/confidentialite': typeof SiteConfidentialiteRoute
+  '/contact': typeof SiteContactRoute
+  '/mentions-legales': typeof SiteMentionsLegalesRoute
+  '/protection-des-mineurs': typeof SiteProtectionDesMineursRoute
   '/villes': typeof SiteVillesRoute
   '/': typeof SiteIndexRoute
   '/pays/$country': typeof SitePaysCountryRoute
@@ -87,7 +128,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_site': typeof SiteRouteWithChildren
+  '/_site/a-propos': typeof SiteAProposRoute
   '/_site/annuaire': typeof SiteAnnuaireRoute
+  '/_site/confidentialite': typeof SiteConfidentialiteRoute
+  '/_site/contact': typeof SiteContactRoute
+  '/_site/mentions-legales': typeof SiteMentionsLegalesRoute
+  '/_site/protection-des-mineurs': typeof SiteProtectionDesMineursRoute
   '/_site/villes': typeof SiteVillesRoute
   '/_site/': typeof SiteIndexRoute
   '/_site/pays/$country': typeof SitePaysCountryRoute
@@ -100,7 +146,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/a-propos'
     | '/annuaire'
+    | '/confidentialite'
+    | '/contact'
+    | '/mentions-legales'
+    | '/protection-des-mineurs'
     | '/villes'
     | '/pays/$country'
     | '/profil/$slug'
@@ -109,7 +160,12 @@ export interface FileRouteTypes {
     | '/ville/$country/$city'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/a-propos'
     | '/annuaire'
+    | '/confidentialite'
+    | '/contact'
+    | '/mentions-legales'
+    | '/protection-des-mineurs'
     | '/villes'
     | '/'
     | '/pays/$country'
@@ -120,7 +176,12 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_site'
+    | '/_site/a-propos'
     | '/_site/annuaire'
+    | '/_site/confidentialite'
+    | '/_site/contact'
+    | '/_site/mentions-legales'
+    | '/_site/protection-des-mineurs'
     | '/_site/villes'
     | '/_site/'
     | '/_site/pays/$country'
@@ -150,11 +211,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteIndexRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/a-propos': {
+      id: '/_site/a-propos'
+      path: '/a-propos'
+      fullPath: '/a-propos'
+      preLoaderRoute: typeof SiteAProposRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/annuaire': {
       id: '/_site/annuaire'
       path: '/annuaire'
       fullPath: '/annuaire'
       preLoaderRoute: typeof SiteAnnuaireRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/confidentialite': {
+      id: '/_site/confidentialite'
+      path: '/confidentialite'
+      fullPath: '/confidentialite'
+      preLoaderRoute: typeof SiteConfidentialiteRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/contact': {
+      id: '/_site/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof SiteContactRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/mentions-legales': {
+      id: '/_site/mentions-legales'
+      path: '/mentions-legales'
+      fullPath: '/mentions-legales'
+      preLoaderRoute: typeof SiteMentionsLegalesRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/protection-des-mineurs': {
+      id: '/_site/protection-des-mineurs'
+      path: '/protection-des-mineurs'
+      fullPath: '/protection-des-mineurs'
+      preLoaderRoute: typeof SiteProtectionDesMineursRouteImport
       parentRoute: typeof SiteRoute
     }
     '/_site/villes': {
@@ -203,7 +299,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface SiteRouteChildren {
+  SiteAProposRoute: typeof SiteAProposRoute
   SiteAnnuaireRoute: typeof SiteAnnuaireRoute
+  SiteConfidentialiteRoute: typeof SiteConfidentialiteRoute
+  SiteContactRoute: typeof SiteContactRoute
+  SiteMentionsLegalesRoute: typeof SiteMentionsLegalesRoute
+  SiteProtectionDesMineursRoute: typeof SiteProtectionDesMineursRoute
   SiteVillesRoute: typeof SiteVillesRoute
   SiteIndexRoute: typeof SiteIndexRoute
   SitePaysCountryRoute: typeof SitePaysCountryRoute
@@ -214,7 +315,12 @@ interface SiteRouteChildren {
 }
 
 const SiteRouteChildren: SiteRouteChildren = {
+  SiteAProposRoute: SiteAProposRoute,
   SiteAnnuaireRoute: SiteAnnuaireRoute,
+  SiteConfidentialiteRoute: SiteConfidentialiteRoute,
+  SiteContactRoute: SiteContactRoute,
+  SiteMentionsLegalesRoute: SiteMentionsLegalesRoute,
+  SiteProtectionDesMineursRoute: SiteProtectionDesMineursRoute,
   SiteVillesRoute: SiteVillesRoute,
   SiteIndexRoute: SiteIndexRoute,
   SitePaysCountryRoute: SitePaysCountryRoute,

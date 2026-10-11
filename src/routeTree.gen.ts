@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SiteRouteImport } from './routes/_site'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
 import { Route as SiteAnnuaireRouteImport } from './routes/_site.annuaire'
+import { Route as SiteProfilSlugRouteImport } from './routes/_site.profil.$slug'
 
 const SiteRoute = SiteRouteImport.update({
   id: '/_site',
@@ -27,27 +28,40 @@ const SiteAnnuaireRoute = SiteAnnuaireRouteImport.update({
   path: '/annuaire',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteProfilSlugRoute = SiteProfilSlugRouteImport.update({
+  id: '/profil/$slug',
+  path: '/profil/$slug',
+  getParentRoute: () => SiteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
   '/annuaire': typeof SiteAnnuaireRoute
+  '/profil/$slug': typeof SiteProfilSlugRoute
 }
 export interface FileRoutesByTo {
   '/annuaire': typeof SiteAnnuaireRoute
   '/': typeof SiteIndexRoute
+  '/profil/$slug': typeof SiteProfilSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_site': typeof SiteRouteWithChildren
   '/_site/annuaire': typeof SiteAnnuaireRoute
   '/_site/': typeof SiteIndexRoute
+  '/_site/profil/$slug': typeof SiteProfilSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/annuaire'
+  fullPaths: '/' | '/annuaire' | '/profil/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/annuaire' | '/'
-  id: '__root__' | '/_site' | '/_site/annuaire' | '/_site/'
+  to: '/annuaire' | '/' | '/profil/$slug'
+  id:
+    | '__root__'
+    | '/_site'
+    | '/_site/annuaire'
+    | '/_site/'
+    | '/_site/profil/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,17 +91,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteAnnuaireRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/profil/$slug': {
+      id: '/_site/profil/$slug'
+      path: '/profil/$slug'
+      fullPath: '/profil/$slug'
+      preLoaderRoute: typeof SiteProfilSlugRouteImport
+      parentRoute: typeof SiteRoute
+    }
   }
 }
 
 interface SiteRouteChildren {
   SiteAnnuaireRoute: typeof SiteAnnuaireRoute
   SiteIndexRoute: typeof SiteIndexRoute
+  SiteProfilSlugRoute: typeof SiteProfilSlugRoute
 }
 
 const SiteRouteChildren: SiteRouteChildren = {
   SiteAnnuaireRoute: SiteAnnuaireRoute,
   SiteIndexRoute: SiteIndexRoute,
+  SiteProfilSlugRoute: SiteProfilSlugRoute,
 }
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)

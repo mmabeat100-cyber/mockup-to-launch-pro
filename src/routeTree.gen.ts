@@ -24,6 +24,9 @@ import { Route as SitePaysCountryRouteImport } from './routes/_site.pays.$countr
 import { Route as SiteProfilSlugRouteImport } from './routes/_site.profil.$slug'
 import { Route as SiteStudiosIndexRouteImport } from './routes/_site.studios.index'
 import { Route as SiteStudiosSlugRouteImport } from './routes/_site.studios.$slug'
+import { Route as AdminProfilsIndexRouteImport } from './routes/admin.profils.index'
+import { Route as AdminProfilsIdRouteImport } from './routes/admin.profils.$id'
+import { Route as AdminProfilsNouveauRouteImport } from './routes/admin.profils.nouveau'
 import { Route as SiteVilleCountryCityRouteImport } from './routes/_site.ville.$country.$city'
 
 const SiteRoute = SiteRouteImport.update({
@@ -101,6 +104,21 @@ const SiteStudiosSlugRoute = SiteStudiosSlugRouteImport.update({
   path: '/studios/$slug',
   getParentRoute: () => SiteRoute,
 } as any)
+const AdminProfilsIndexRoute = AdminProfilsIndexRouteImport.update({
+  id: '/profils/',
+  path: '/profils/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProfilsIdRoute = AdminProfilsIdRouteImport.update({
+  id: '/profils/$id',
+  path: '/profils/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProfilsNouveauRoute = AdminProfilsNouveauRouteImport.update({
+  id: '/profils/nouveau',
+  path: '/profils/nouveau',
+  getParentRoute: () => AdminRoute,
+} as any)
 const SiteVilleCountryCityRoute = SiteVilleCountryCityRouteImport.update({
   id: '/ville/$country/$city',
   path: '/ville/$country/$city',
@@ -121,7 +139,10 @@ export interface FileRoutesByFullPath {
   '/pays/$country': typeof SitePaysCountryRoute
   '/profil/$slug': typeof SiteProfilSlugRoute
   '/studios/$slug': typeof SiteStudiosSlugRoute
+  '/admin/profils/$id': typeof AdminProfilsIdRoute
+  '/admin/profils/nouveau': typeof AdminProfilsNouveauRoute
   '/studios/': typeof SiteStudiosIndexRoute
+  '/admin/profils/': typeof AdminProfilsIndexRoute
   '/ville/$country/$city': typeof SiteVilleCountryCityRoute
 }
 export interface FileRoutesByTo {
@@ -137,7 +158,10 @@ export interface FileRoutesByTo {
   '/pays/$country': typeof SitePaysCountryRoute
   '/profil/$slug': typeof SiteProfilSlugRoute
   '/studios/$slug': typeof SiteStudiosSlugRoute
+  '/admin/profils/$id': typeof AdminProfilsIdRoute
+  '/admin/profils/nouveau': typeof AdminProfilsNouveauRoute
   '/studios': typeof SiteStudiosIndexRoute
+  '/admin/profils': typeof AdminProfilsIndexRoute
   '/ville/$country/$city': typeof SiteVilleCountryCityRoute
 }
 export interface FileRoutesById {
@@ -156,7 +180,10 @@ export interface FileRoutesById {
   '/_site/pays/$country': typeof SitePaysCountryRoute
   '/_site/profil/$slug': typeof SiteProfilSlugRoute
   '/_site/studios/$slug': typeof SiteStudiosSlugRoute
+  '/admin/profils/$id': typeof AdminProfilsIdRoute
+  '/admin/profils/nouveau': typeof AdminProfilsNouveauRoute
   '/_site/studios/': typeof SiteStudiosIndexRoute
+  '/admin/profils/': typeof AdminProfilsIndexRoute
   '/_site/ville/$country/$city': typeof SiteVilleCountryCityRoute
 }
 export interface FileRouteTypes {
@@ -175,7 +202,10 @@ export interface FileRouteTypes {
     | '/pays/$country'
     | '/profil/$slug'
     | '/studios/$slug'
+    | '/admin/profils/$id'
+    | '/admin/profils/nouveau'
     | '/studios/'
+    | '/admin/profils/'
     | '/ville/$country/$city'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -191,7 +221,10 @@ export interface FileRouteTypes {
     | '/pays/$country'
     | '/profil/$slug'
     | '/studios/$slug'
+    | '/admin/profils/$id'
+    | '/admin/profils/nouveau'
     | '/studios'
+    | '/admin/profils'
     | '/ville/$country/$city'
   id:
     | '__root__'
@@ -209,7 +242,10 @@ export interface FileRouteTypes {
     | '/_site/pays/$country'
     | '/_site/profil/$slug'
     | '/_site/studios/$slug'
+    | '/admin/profils/$id'
+    | '/admin/profils/nouveau'
     | '/_site/studios/'
+    | '/admin/profils/'
     | '/_site/ville/$country/$city'
   fileRoutesById: FileRoutesById
 }
@@ -325,6 +361,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteStudiosSlugRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/admin/profils/': {
+      id: '/admin/profils/'
+      path: '/profils'
+      fullPath: '/admin/profils/'
+      preLoaderRoute: typeof AdminProfilsIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/profils/$id': {
+      id: '/admin/profils/$id'
+      path: '/profils/$id'
+      fullPath: '/admin/profils/$id'
+      preLoaderRoute: typeof AdminProfilsIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/profils/nouveau': {
+      id: '/admin/profils/nouveau'
+      path: '/profils/nouveau'
+      fullPath: '/admin/profils/nouveau'
+      preLoaderRoute: typeof AdminProfilsNouveauRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/_site/ville/$country/$city': {
       id: '/_site/ville/$country/$city'
       path: '/ville/$country/$city'
@@ -371,10 +428,16 @@ const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
 interface AdminRouteChildren {
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminProfilsIdRoute: typeof AdminProfilsIdRoute
+  AdminProfilsNouveauRoute: typeof AdminProfilsNouveauRoute
+  AdminProfilsIndexRoute: typeof AdminProfilsIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
+  AdminProfilsIdRoute: AdminProfilsIdRoute,
+  AdminProfilsNouveauRoute: AdminProfilsNouveauRoute,
+  AdminProfilsIndexRoute: AdminProfilsIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)

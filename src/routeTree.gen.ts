@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SiteRouteImport } from './routes/_site'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
 import { Route as SiteAProposRouteImport } from './routes/_site.a-propos'
 import { Route as SiteAnnuaireRouteImport } from './routes/_site.annuaire'
@@ -18,6 +19,7 @@ import { Route as SiteContactRouteImport } from './routes/_site.contact'
 import { Route as SiteMentionsLegalesRouteImport } from './routes/_site.mentions-legales'
 import { Route as SiteProtectionDesMineursRouteImport } from './routes/_site.protection-des-mineurs'
 import { Route as SiteVillesRouteImport } from './routes/_site.villes'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as SitePaysCountryRouteImport } from './routes/_site.pays.$country'
 import { Route as SiteProfilSlugRouteImport } from './routes/_site.profil.$slug'
 import { Route as SiteStudiosIndexRouteImport } from './routes/_site.studios.index'
@@ -26,6 +28,11 @@ import { Route as SiteVilleCountryCityRouteImport } from './routes/_site.ville.$
 
 const SiteRoute = SiteRouteImport.update({
   id: '/_site',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SiteIndexRoute = SiteIndexRouteImport.update({
@@ -69,6 +76,11 @@ const SiteVillesRoute = SiteVillesRouteImport.update({
   path: '/villes',
   getParentRoute: () => SiteRoute,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const SitePaysCountryRoute = SitePaysCountryRouteImport.update({
   id: '/pays/$country',
   path: '/pays/$country',
@@ -97,6 +109,7 @@ const SiteVilleCountryCityRoute = SiteVilleCountryCityRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/a-propos': typeof SiteAProposRoute
   '/annuaire': typeof SiteAnnuaireRoute
   '/confidentialite': typeof SiteConfidentialiteRoute
@@ -104,6 +117,7 @@ export interface FileRoutesByFullPath {
   '/mentions-legales': typeof SiteMentionsLegalesRoute
   '/protection-des-mineurs': typeof SiteProtectionDesMineursRoute
   '/villes': typeof SiteVillesRoute
+  '/admin/': typeof AdminIndexRoute
   '/pays/$country': typeof SitePaysCountryRoute
   '/profil/$slug': typeof SiteProfilSlugRoute
   '/studios/$slug': typeof SiteStudiosSlugRoute
@@ -119,6 +133,7 @@ export interface FileRoutesByTo {
   '/protection-des-mineurs': typeof SiteProtectionDesMineursRoute
   '/villes': typeof SiteVillesRoute
   '/': typeof SiteIndexRoute
+  '/admin': typeof AdminIndexRoute
   '/pays/$country': typeof SitePaysCountryRoute
   '/profil/$slug': typeof SiteProfilSlugRoute
   '/studios/$slug': typeof SiteStudiosSlugRoute
@@ -128,6 +143,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_site': typeof SiteRouteWithChildren
+  '/admin': typeof AdminRouteWithChildren
   '/_site/a-propos': typeof SiteAProposRoute
   '/_site/annuaire': typeof SiteAnnuaireRoute
   '/_site/confidentialite': typeof SiteConfidentialiteRoute
@@ -136,6 +152,7 @@ export interface FileRoutesById {
   '/_site/protection-des-mineurs': typeof SiteProtectionDesMineursRoute
   '/_site/villes': typeof SiteVillesRoute
   '/_site/': typeof SiteIndexRoute
+  '/admin/': typeof AdminIndexRoute
   '/_site/pays/$country': typeof SitePaysCountryRoute
   '/_site/profil/$slug': typeof SiteProfilSlugRoute
   '/_site/studios/$slug': typeof SiteStudiosSlugRoute
@@ -146,6 +163,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/a-propos'
     | '/annuaire'
     | '/confidentialite'
@@ -153,6 +171,7 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/protection-des-mineurs'
     | '/villes'
+    | '/admin/'
     | '/pays/$country'
     | '/profil/$slug'
     | '/studios/$slug'
@@ -168,6 +187,7 @@ export interface FileRouteTypes {
     | '/protection-des-mineurs'
     | '/villes'
     | '/'
+    | '/admin'
     | '/pays/$country'
     | '/profil/$slug'
     | '/studios/$slug'
@@ -176,6 +196,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_site'
+    | '/admin'
     | '/_site/a-propos'
     | '/_site/annuaire'
     | '/_site/confidentialite'
@@ -184,6 +205,7 @@ export interface FileRouteTypes {
     | '/_site/protection-des-mineurs'
     | '/_site/villes'
     | '/_site/'
+    | '/admin/'
     | '/_site/pays/$country'
     | '/_site/profil/$slug'
     | '/_site/studios/$slug'
@@ -193,6 +215,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   SiteRoute: typeof SiteRouteWithChildren
+  AdminRoute: typeof AdminRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -202,6 +225,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof SiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_site/': {
@@ -259,6 +289,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/villes'
       preLoaderRoute: typeof SiteVillesRouteImport
       parentRoute: typeof SiteRoute
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/_site/pays/$country': {
       id: '/_site/pays/$country'
@@ -332,8 +369,19 @@ const SiteRouteChildren: SiteRouteChildren = {
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
+interface AdminRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   SiteRoute: SiteRouteWithChildren,
+  AdminRoute: AdminRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

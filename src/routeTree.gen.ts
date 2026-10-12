@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SiteRouteImport } from './routes/_site'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
 import { Route as SiteAProposRouteImport } from './routes/_site.a-propos'
 import { Route as SiteAnnuaireRouteImport } from './routes/_site.annuaire'
@@ -18,14 +19,28 @@ import { Route as SiteContactRouteImport } from './routes/_site.contact'
 import { Route as SiteMentionsLegalesRouteImport } from './routes/_site.mentions-legales'
 import { Route as SiteProtectionDesMineursRouteImport } from './routes/_site.protection-des-mineurs'
 import { Route as SiteVillesRouteImport } from './routes/_site.villes'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAvisRouteImport } from './routes/admin.avis'
+import { Route as AdminCataloguesRouteImport } from './routes/admin.catalogues'
+import { Route as AdminParametresRouteImport } from './routes/admin.parametres'
+import { Route as AdminPaysRouteImport } from './routes/admin.pays'
+import { Route as AdminStudiosRouteImport } from './routes/admin.studios'
 import { Route as SitePaysCountryRouteImport } from './routes/_site.pays.$country'
 import { Route as SiteProfilSlugRouteImport } from './routes/_site.profil.$slug'
 import { Route as SiteStudiosIndexRouteImport } from './routes/_site.studios.index'
 import { Route as SiteStudiosSlugRouteImport } from './routes/_site.studios.$slug'
+import { Route as AdminProfilsIndexRouteImport } from './routes/admin.profils.index'
+import { Route as AdminProfilsIdRouteImport } from './routes/admin.profils.$id'
+import { Route as AdminProfilsNouveauRouteImport } from './routes/admin.profils.nouveau'
 import { Route as SiteVilleCountryCityRouteImport } from './routes/_site.ville.$country.$city'
 
 const SiteRoute = SiteRouteImport.update({
   id: '/_site',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SiteIndexRoute = SiteIndexRouteImport.update({
@@ -69,6 +84,36 @@ const SiteVillesRoute = SiteVillesRouteImport.update({
   path: '/villes',
   getParentRoute: () => SiteRoute,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAvisRoute = AdminAvisRouteImport.update({
+  id: '/avis',
+  path: '/avis',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCataloguesRoute = AdminCataloguesRouteImport.update({
+  id: '/catalogues',
+  path: '/catalogues',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminParametresRoute = AdminParametresRouteImport.update({
+  id: '/parametres',
+  path: '/parametres',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPaysRoute = AdminPaysRouteImport.update({
+  id: '/pays',
+  path: '/pays',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminStudiosRoute = AdminStudiosRouteImport.update({
+  id: '/studios',
+  path: '/studios',
+  getParentRoute: () => AdminRoute,
+} as any)
 const SitePaysCountryRoute = SitePaysCountryRouteImport.update({
   id: '/pays/$country',
   path: '/pays/$country',
@@ -89,6 +134,21 @@ const SiteStudiosSlugRoute = SiteStudiosSlugRouteImport.update({
   path: '/studios/$slug',
   getParentRoute: () => SiteRoute,
 } as any)
+const AdminProfilsIndexRoute = AdminProfilsIndexRouteImport.update({
+  id: '/profils/',
+  path: '/profils/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProfilsIdRoute = AdminProfilsIdRouteImport.update({
+  id: '/profils/$id',
+  path: '/profils/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProfilsNouveauRoute = AdminProfilsNouveauRouteImport.update({
+  id: '/profils/nouveau',
+  path: '/profils/nouveau',
+  getParentRoute: () => AdminRoute,
+} as any)
 const SiteVilleCountryCityRoute = SiteVilleCountryCityRouteImport.update({
   id: '/ville/$country/$city',
   path: '/ville/$country/$city',
@@ -97,6 +157,7 @@ const SiteVilleCountryCityRoute = SiteVilleCountryCityRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/a-propos': typeof SiteAProposRoute
   '/annuaire': typeof SiteAnnuaireRoute
   '/confidentialite': typeof SiteConfidentialiteRoute
@@ -104,10 +165,19 @@ export interface FileRoutesByFullPath {
   '/mentions-legales': typeof SiteMentionsLegalesRoute
   '/protection-des-mineurs': typeof SiteProtectionDesMineursRoute
   '/villes': typeof SiteVillesRoute
+  '/admin/avis': typeof AdminAvisRoute
+  '/admin/catalogues': typeof AdminCataloguesRoute
+  '/admin/parametres': typeof AdminParametresRoute
+  '/admin/pays': typeof AdminPaysRoute
+  '/admin/studios': typeof AdminStudiosRoute
+  '/admin/': typeof AdminIndexRoute
   '/pays/$country': typeof SitePaysCountryRoute
   '/profil/$slug': typeof SiteProfilSlugRoute
   '/studios/$slug': typeof SiteStudiosSlugRoute
+  '/admin/profils/$id': typeof AdminProfilsIdRoute
+  '/admin/profils/nouveau': typeof AdminProfilsNouveauRoute
   '/studios/': typeof SiteStudiosIndexRoute
+  '/admin/profils/': typeof AdminProfilsIndexRoute
   '/ville/$country/$city': typeof SiteVilleCountryCityRoute
 }
 export interface FileRoutesByTo {
@@ -118,16 +188,26 @@ export interface FileRoutesByTo {
   '/mentions-legales': typeof SiteMentionsLegalesRoute
   '/protection-des-mineurs': typeof SiteProtectionDesMineursRoute
   '/villes': typeof SiteVillesRoute
+  '/admin/avis': typeof AdminAvisRoute
+  '/admin/catalogues': typeof AdminCataloguesRoute
+  '/admin/parametres': typeof AdminParametresRoute
+  '/admin/pays': typeof AdminPaysRoute
+  '/admin/studios': typeof AdminStudiosRoute
   '/': typeof SiteIndexRoute
+  '/admin': typeof AdminIndexRoute
   '/pays/$country': typeof SitePaysCountryRoute
   '/profil/$slug': typeof SiteProfilSlugRoute
   '/studios/$slug': typeof SiteStudiosSlugRoute
+  '/admin/profils/$id': typeof AdminProfilsIdRoute
+  '/admin/profils/nouveau': typeof AdminProfilsNouveauRoute
   '/studios': typeof SiteStudiosIndexRoute
+  '/admin/profils': typeof AdminProfilsIndexRoute
   '/ville/$country/$city': typeof SiteVilleCountryCityRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_site': typeof SiteRouteWithChildren
+  '/admin': typeof AdminRouteWithChildren
   '/_site/a-propos': typeof SiteAProposRoute
   '/_site/annuaire': typeof SiteAnnuaireRoute
   '/_site/confidentialite': typeof SiteConfidentialiteRoute
@@ -135,17 +215,27 @@ export interface FileRoutesById {
   '/_site/mentions-legales': typeof SiteMentionsLegalesRoute
   '/_site/protection-des-mineurs': typeof SiteProtectionDesMineursRoute
   '/_site/villes': typeof SiteVillesRoute
+  '/admin/avis': typeof AdminAvisRoute
+  '/admin/catalogues': typeof AdminCataloguesRoute
+  '/admin/parametres': typeof AdminParametresRoute
+  '/admin/pays': typeof AdminPaysRoute
+  '/admin/studios': typeof AdminStudiosRoute
   '/_site/': typeof SiteIndexRoute
+  '/admin/': typeof AdminIndexRoute
   '/_site/pays/$country': typeof SitePaysCountryRoute
   '/_site/profil/$slug': typeof SiteProfilSlugRoute
   '/_site/studios/$slug': typeof SiteStudiosSlugRoute
+  '/admin/profils/$id': typeof AdminProfilsIdRoute
+  '/admin/profils/nouveau': typeof AdminProfilsNouveauRoute
   '/_site/studios/': typeof SiteStudiosIndexRoute
+  '/admin/profils/': typeof AdminProfilsIndexRoute
   '/_site/ville/$country/$city': typeof SiteVilleCountryCityRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/a-propos'
     | '/annuaire'
     | '/confidentialite'
@@ -153,10 +243,19 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/protection-des-mineurs'
     | '/villes'
+    | '/admin/avis'
+    | '/admin/catalogues'
+    | '/admin/parametres'
+    | '/admin/pays'
+    | '/admin/studios'
+    | '/admin/'
     | '/pays/$country'
     | '/profil/$slug'
     | '/studios/$slug'
+    | '/admin/profils/$id'
+    | '/admin/profils/nouveau'
     | '/studios/'
+    | '/admin/profils/'
     | '/ville/$country/$city'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -167,15 +266,25 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/protection-des-mineurs'
     | '/villes'
+    | '/admin/avis'
+    | '/admin/catalogues'
+    | '/admin/parametres'
+    | '/admin/pays'
+    | '/admin/studios'
     | '/'
+    | '/admin'
     | '/pays/$country'
     | '/profil/$slug'
     | '/studios/$slug'
+    | '/admin/profils/$id'
+    | '/admin/profils/nouveau'
     | '/studios'
+    | '/admin/profils'
     | '/ville/$country/$city'
   id:
     | '__root__'
     | '/_site'
+    | '/admin'
     | '/_site/a-propos'
     | '/_site/annuaire'
     | '/_site/confidentialite'
@@ -183,16 +292,26 @@ export interface FileRouteTypes {
     | '/_site/mentions-legales'
     | '/_site/protection-des-mineurs'
     | '/_site/villes'
+    | '/admin/avis'
+    | '/admin/catalogues'
+    | '/admin/parametres'
+    | '/admin/pays'
+    | '/admin/studios'
     | '/_site/'
+    | '/admin/'
     | '/_site/pays/$country'
     | '/_site/profil/$slug'
     | '/_site/studios/$slug'
+    | '/admin/profils/$id'
+    | '/admin/profils/nouveau'
     | '/_site/studios/'
+    | '/admin/profils/'
     | '/_site/ville/$country/$city'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   SiteRoute: typeof SiteRouteWithChildren
+  AdminRoute: typeof AdminRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -202,6 +321,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof SiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_site/': {
@@ -260,6 +386,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteVillesRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/avis': {
+      id: '/admin/avis'
+      path: '/avis'
+      fullPath: '/admin/avis'
+      preLoaderRoute: typeof AdminAvisRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/catalogues': {
+      id: '/admin/catalogues'
+      path: '/catalogues'
+      fullPath: '/admin/catalogues'
+      preLoaderRoute: typeof AdminCataloguesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/parametres': {
+      id: '/admin/parametres'
+      path: '/parametres'
+      fullPath: '/admin/parametres'
+      preLoaderRoute: typeof AdminParametresRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/pays': {
+      id: '/admin/pays'
+      path: '/pays'
+      fullPath: '/admin/pays'
+      preLoaderRoute: typeof AdminPaysRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/studios': {
+      id: '/admin/studios'
+      path: '/studios'
+      fullPath: '/admin/studios'
+      preLoaderRoute: typeof AdminStudiosRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/_site/pays/$country': {
       id: '/_site/pays/$country'
       path: '/pays/$country'
@@ -287,6 +455,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/studios/$slug'
       preLoaderRoute: typeof SiteStudiosSlugRouteImport
       parentRoute: typeof SiteRoute
+    }
+    '/admin/profils/': {
+      id: '/admin/profils/'
+      path: '/profils'
+      fullPath: '/admin/profils/'
+      preLoaderRoute: typeof AdminProfilsIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/profils/$id': {
+      id: '/admin/profils/$id'
+      path: '/profils/$id'
+      fullPath: '/admin/profils/$id'
+      preLoaderRoute: typeof AdminProfilsIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/profils/nouveau': {
+      id: '/admin/profils/nouveau'
+      path: '/profils/nouveau'
+      fullPath: '/admin/profils/nouveau'
+      preLoaderRoute: typeof AdminProfilsNouveauRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/_site/ville/$country/$city': {
       id: '/_site/ville/$country/$city'
@@ -332,8 +521,35 @@ const SiteRouteChildren: SiteRouteChildren = {
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
+interface AdminRouteChildren {
+  AdminAvisRoute: typeof AdminAvisRoute
+  AdminCataloguesRoute: typeof AdminCataloguesRoute
+  AdminParametresRoute: typeof AdminParametresRoute
+  AdminPaysRoute: typeof AdminPaysRoute
+  AdminStudiosRoute: typeof AdminStudiosRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminProfilsIdRoute: typeof AdminProfilsIdRoute
+  AdminProfilsNouveauRoute: typeof AdminProfilsNouveauRoute
+  AdminProfilsIndexRoute: typeof AdminProfilsIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAvisRoute: AdminAvisRoute,
+  AdminCataloguesRoute: AdminCataloguesRoute,
+  AdminParametresRoute: AdminParametresRoute,
+  AdminPaysRoute: AdminPaysRoute,
+  AdminStudiosRoute: AdminStudiosRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminProfilsIdRoute: AdminProfilsIdRoute,
+  AdminProfilsNouveauRoute: AdminProfilsNouveauRoute,
+  AdminProfilsIndexRoute: AdminProfilsIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   SiteRoute: SiteRouteWithChildren,
+  AdminRoute: AdminRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

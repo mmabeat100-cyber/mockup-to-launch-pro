@@ -24,7 +24,6 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
       "@/*": ["./src/*"]

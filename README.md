@@ -1,29 +1,15 @@
-# Welcome to your Lovable project
+# DominaCompass — annuaire premium (front-end démo)
 
-This project was built with [Lovable](https://lovable.dev).
+Données mock (`src/data`) gérées par un store Zustand persisté dans localStorage. Couche d'accès : `src/services/*` (point de branchement futur d'une base de données).
 
-## Build with Lovable
+## Back-office
+URL : `/admin` — identifiant **admin** / mot de passe **compass2026** (démo uniquement, défini dans `src/config/site.ts`).
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+## Routes publiques
+- `/` accueil · `/annuaire` (filtres en query params) · `/profil/:slug`
+- `/pays/:country` · `/ville/:country/:city` · `/villes`
+- `/studios` · `/studios/:slug`
+- `/a-propos` · `/mentions-legales` · `/confidentialite` · `/protection-des-mineurs` · `/contact`
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+## Routes admin
+`/admin` · `/admin/profils` · `/admin/profils/nouveau` · `/admin/profils/:id` · `/admin/studios` · `/admin/pays` · `/admin/catalogues` · `/admin/avis` · `/admin/parametres`

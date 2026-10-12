@@ -20,6 +20,11 @@ import { Route as SiteMentionsLegalesRouteImport } from './routes/_site.mentions
 import { Route as SiteProtectionDesMineursRouteImport } from './routes/_site.protection-des-mineurs'
 import { Route as SiteVillesRouteImport } from './routes/_site.villes'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAvisRouteImport } from './routes/admin.avis'
+import { Route as AdminCataloguesRouteImport } from './routes/admin.catalogues'
+import { Route as AdminParametresRouteImport } from './routes/admin.parametres'
+import { Route as AdminPaysRouteImport } from './routes/admin.pays'
+import { Route as AdminStudiosRouteImport } from './routes/admin.studios'
 import { Route as SitePaysCountryRouteImport } from './routes/_site.pays.$country'
 import { Route as SiteProfilSlugRouteImport } from './routes/_site.profil.$slug'
 import { Route as SiteStudiosIndexRouteImport } from './routes/_site.studios.index'
@@ -84,6 +89,31 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAvisRoute = AdminAvisRouteImport.update({
+  id: '/avis',
+  path: '/avis',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCataloguesRoute = AdminCataloguesRouteImport.update({
+  id: '/catalogues',
+  path: '/catalogues',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminParametresRoute = AdminParametresRouteImport.update({
+  id: '/parametres',
+  path: '/parametres',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPaysRoute = AdminPaysRouteImport.update({
+  id: '/pays',
+  path: '/pays',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminStudiosRoute = AdminStudiosRouteImport.update({
+  id: '/studios',
+  path: '/studios',
+  getParentRoute: () => AdminRoute,
+} as any)
 const SitePaysCountryRoute = SitePaysCountryRouteImport.update({
   id: '/pays/$country',
   path: '/pays/$country',
@@ -135,6 +165,11 @@ export interface FileRoutesByFullPath {
   '/mentions-legales': typeof SiteMentionsLegalesRoute
   '/protection-des-mineurs': typeof SiteProtectionDesMineursRoute
   '/villes': typeof SiteVillesRoute
+  '/admin/avis': typeof AdminAvisRoute
+  '/admin/catalogues': typeof AdminCataloguesRoute
+  '/admin/parametres': typeof AdminParametresRoute
+  '/admin/pays': typeof AdminPaysRoute
+  '/admin/studios': typeof AdminStudiosRoute
   '/admin/': typeof AdminIndexRoute
   '/pays/$country': typeof SitePaysCountryRoute
   '/profil/$slug': typeof SiteProfilSlugRoute
@@ -153,6 +188,11 @@ export interface FileRoutesByTo {
   '/mentions-legales': typeof SiteMentionsLegalesRoute
   '/protection-des-mineurs': typeof SiteProtectionDesMineursRoute
   '/villes': typeof SiteVillesRoute
+  '/admin/avis': typeof AdminAvisRoute
+  '/admin/catalogues': typeof AdminCataloguesRoute
+  '/admin/parametres': typeof AdminParametresRoute
+  '/admin/pays': typeof AdminPaysRoute
+  '/admin/studios': typeof AdminStudiosRoute
   '/': typeof SiteIndexRoute
   '/admin': typeof AdminIndexRoute
   '/pays/$country': typeof SitePaysCountryRoute
@@ -175,6 +215,11 @@ export interface FileRoutesById {
   '/_site/mentions-legales': typeof SiteMentionsLegalesRoute
   '/_site/protection-des-mineurs': typeof SiteProtectionDesMineursRoute
   '/_site/villes': typeof SiteVillesRoute
+  '/admin/avis': typeof AdminAvisRoute
+  '/admin/catalogues': typeof AdminCataloguesRoute
+  '/admin/parametres': typeof AdminParametresRoute
+  '/admin/pays': typeof AdminPaysRoute
+  '/admin/studios': typeof AdminStudiosRoute
   '/_site/': typeof SiteIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/_site/pays/$country': typeof SitePaysCountryRoute
@@ -198,6 +243,11 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/protection-des-mineurs'
     | '/villes'
+    | '/admin/avis'
+    | '/admin/catalogues'
+    | '/admin/parametres'
+    | '/admin/pays'
+    | '/admin/studios'
     | '/admin/'
     | '/pays/$country'
     | '/profil/$slug'
@@ -216,6 +266,11 @@ export interface FileRouteTypes {
     | '/mentions-legales'
     | '/protection-des-mineurs'
     | '/villes'
+    | '/admin/avis'
+    | '/admin/catalogues'
+    | '/admin/parametres'
+    | '/admin/pays'
+    | '/admin/studios'
     | '/'
     | '/admin'
     | '/pays/$country'
@@ -237,6 +292,11 @@ export interface FileRouteTypes {
     | '/_site/mentions-legales'
     | '/_site/protection-des-mineurs'
     | '/_site/villes'
+    | '/admin/avis'
+    | '/admin/catalogues'
+    | '/admin/parametres'
+    | '/admin/pays'
+    | '/admin/studios'
     | '/_site/'
     | '/admin/'
     | '/_site/pays/$country'
@@ -333,6 +393,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/avis': {
+      id: '/admin/avis'
+      path: '/avis'
+      fullPath: '/admin/avis'
+      preLoaderRoute: typeof AdminAvisRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/catalogues': {
+      id: '/admin/catalogues'
+      path: '/catalogues'
+      fullPath: '/admin/catalogues'
+      preLoaderRoute: typeof AdminCataloguesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/parametres': {
+      id: '/admin/parametres'
+      path: '/parametres'
+      fullPath: '/admin/parametres'
+      preLoaderRoute: typeof AdminParametresRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/pays': {
+      id: '/admin/pays'
+      path: '/pays'
+      fullPath: '/admin/pays'
+      preLoaderRoute: typeof AdminPaysRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/studios': {
+      id: '/admin/studios'
+      path: '/studios'
+      fullPath: '/admin/studios'
+      preLoaderRoute: typeof AdminStudiosRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/_site/pays/$country': {
       id: '/_site/pays/$country'
       path: '/pays/$country'
@@ -427,6 +522,11 @@ const SiteRouteChildren: SiteRouteChildren = {
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
 interface AdminRouteChildren {
+  AdminAvisRoute: typeof AdminAvisRoute
+  AdminCataloguesRoute: typeof AdminCataloguesRoute
+  AdminParametresRoute: typeof AdminParametresRoute
+  AdminPaysRoute: typeof AdminPaysRoute
+  AdminStudiosRoute: typeof AdminStudiosRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminProfilsIdRoute: typeof AdminProfilsIdRoute
   AdminProfilsNouveauRoute: typeof AdminProfilsNouveauRoute
@@ -434,6 +534,11 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAvisRoute: AdminAvisRoute,
+  AdminCataloguesRoute: AdminCataloguesRoute,
+  AdminParametresRoute: AdminParametresRoute,
+  AdminPaysRoute: AdminPaysRoute,
+  AdminStudiosRoute: AdminStudiosRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminProfilsIdRoute: AdminProfilsIdRoute,
   AdminProfilsNouveauRoute: AdminProfilsNouveauRoute,
